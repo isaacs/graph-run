@@ -1,0 +1,9 @@
+/node_modules
+/LICENSE.md
+/example
+/.github
+/dist
+/tap-snapshots
+/.tap
+/test/fixtures
+/scripts/fixtures

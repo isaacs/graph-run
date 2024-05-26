@@ -1,0 +1,73 @@
+{
+  "name": "graph-run",
+  "version": "0.0.0-0",
+  "description": "Run operations on a graph, maximizing parallelism",
+  "main": "./dist/commonjs/index.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "preversion": "npm test",
+    "postversion": "npm publish",
+    "prepublishOnly": "git push origin --follow-tags",
+    "prepare": "tshy",
+    "pretest": "npm run prepare",
+    "presnap": "npm run prepare",
+    "test": "tap",
+    "snap": "tap",
+    "format": "prettier --write . --log-level warn --cache",
+    "typedoc": "typedoc"
+  },
+  "keywords": [
+    "graph",
+    "async",
+    "parallel",
+    "topological",
+    "topological sort"
+  ],
+  "author": "Isaac Z. Schlueter <i@izs.me> (https://izs.me)",
+  "license": "BlueOak-1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isaacs/graph-run.git"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "tap": "^19.0.2",
+    "tshy": "^1.14.0",
+    "typedoc": "^0.25.13"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 70,
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "bracketSameLine": true,
+    "arrowParens": "avoid",
+    "endOfLine": "lf",
+    "experimentalTernaries": true
+  },
+  "tshy": {
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/index.ts"
+    }
+  },
+  "types": "./dist/commonjs/index.d.ts",
+  "type": "module"
+}
