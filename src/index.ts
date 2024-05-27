@@ -68,13 +68,13 @@ export interface RunnerOptionsSync<Node, Result = void>
 }
 
 /**  A map of nodes to their PromiseSettledResult value */
-type SettledMap<Node, Result = void> = Map<
+export type SettledMap<Node, Result = void> = Map<
   Node,
   PromiseSettledResult<Result>
 >
 
 /** Any function or class. Used for Error.captureStackTrace */
-type Callable =
+export type Callable =
   | Function
   | ((...a: unknown[]) => unknown)
   | {
