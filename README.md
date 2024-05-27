@@ -142,9 +142,11 @@ const results = await graphRun/*<Node, Result>*/({
   // optional: if this method throws, then the traversal will
   // of course fail when cycles are encountered. If not provided,
   // then cycles are silently detected and skipped.
-  // first argument is the array of nodes forming a cycle,
-  // second argument is the path taken to get to the cycle entry
-  // (node: Node[], cycle: Node[], path: Node[]) => void | Promise<void>
+  // first argument is the dependency that would cause a cycle
+  // second argument is the cycle from that node back to itself
+  // third is the path to the dependent that wanted to load it,
+  // but instead will skip it because of the cycle.
+  // (node: Node, cycle: Node[], path: Node[]) => void | Promise<void>
   onCycle: (node, cycle, path) => {
     console.error(
       `warning: while evaluating ${
