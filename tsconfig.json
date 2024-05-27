@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "removeComments": true,
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
