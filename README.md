@@ -146,7 +146,15 @@ const results = await graphRun/*<Node, Result>*/({
   // second argument is the path taken to get to the cycle entry
   // (node: Node[], cycle: Node[], path: Node[]) => void | Promise<void>
   onCycle: (node, cycle, path) => {
-    console.error('warning: cycle encountered!', cycle, path)
+    console.error(
+      `warning: while evaluating ${
+        node 
+      } at path ${
+        path.join('->')
+      } encountered cycle: ${
+        cycle.join('->')
+      }. Proceeding without this dependency.`
+    )
   },
 
   // Whether to abort the entire traversal on the first error

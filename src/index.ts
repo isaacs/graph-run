@@ -20,6 +20,14 @@ export interface RunnerOptions<Node, Result = void> {
    * Called when a cycle is encountered.
    * Throw in this method to enforce a DAG graph.
    * If left undefined, then cycles are silently ignored and skipped.
+   *
+   * `node` parameter is the dependency that is being skipped.
+   *
+   * `cycle` is the route from the dependent back to itself via
+   * the parent.
+   *
+   * `path` is the path to the dependent who wanted this dep to be
+   * loaded.
    */
   onCycle?: (
     node: Node,
