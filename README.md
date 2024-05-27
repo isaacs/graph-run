@@ -180,6 +180,7 @@ const isDAG = (graph) => {
       graph: [graph],
       getDeps: n => n.children ?? [],
       onCycle: () => { throw 'cycle detected' },
+      visit: () => {}
     })
     return true
   } catch {
