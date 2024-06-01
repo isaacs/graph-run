@@ -1,6 +1,6 @@
 {
   "name": "graph-run",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Run operations on a graph, maximizing parallelism",
   "main": "./dist/commonjs/index.js",
   "exports": {
