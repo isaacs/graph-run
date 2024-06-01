@@ -1,3 +1,5 @@
+import { setMaxListeners } from 'node:events'
+
 /**
  * Options that define the graph and how to traverse it
  */
@@ -59,7 +61,6 @@ export type DepResults<Node, Result> = Map<Node, Result | undefined>
  */
 export interface RunnerOptionsSync<Node, Result = void>
   extends RunnerOptions<Node, Result> {
-
   /** Get a set of dependency nodes synchronously */
   getDeps: (node: Node) => Node[]
 
@@ -145,6 +146,7 @@ export abstract class RunnerBase<
     const ac = new AbortController()
     this.from = from ?? this.constructor
     this.abortController = ac
+    setMaxListeners(Infinity, ac.signal)
     this.options = options
     if (!options.graph.length) {
       const er = new Error('no nodes provided to graph traversal', {
@@ -159,7 +161,10 @@ export abstract class RunnerBase<
     this.failFast = options.failFast !== false
     const { signal } = options
     if (signal !== undefined) {
-      signal.addEventListener('abort', reason => ac.abort(reason))
+      signal.addEventListener('abort', reason => ac.abort(reason), {
+        once: true,
+        signal: ac.signal
+      })
     }
   }
 
@@ -199,10 +204,7 @@ export abstract class RunnerBase<
    * Note that self-referential links are never considered, since they're
    * by definition cyclical.
    */
-  route(
-    n: Node,
-    d: Node,
-  ): undefined | [n: Node, ...path: Node[]] {
+  route(n: Node, d: Node): undefined | [n: Node, ...path: Node[]] {
     const dependents = this.dependents.get(d)
     if (!dependents?.has(n)) return undefined
     const directDependents = this.directDependents.get(d)
