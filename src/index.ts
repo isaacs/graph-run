@@ -322,7 +322,16 @@ export class Runner<Node, Result> extends RunnerBase<
   async getDeps(n: Node) {
     /* c8 ignore next */
     if (this.abortController.signal.aborted) return []
-    return this.options.getDeps(n)
+    const deps = await this.options.getDeps(n);
+    for (const d of deps) {
+      const dependents = this.dependents.get(d) ?? new Set()
+      this.dependents.set(d, dependents)
+      dependents.add(n)
+      const depDD = this.directDependents.get(d) ?? new Set()
+      this.directDependents.set(d, depDD)
+      depDD.add(n)
+    }
+    return deps
   }
 
   async visit(

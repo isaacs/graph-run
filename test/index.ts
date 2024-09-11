@@ -458,7 +458,7 @@ t.test('Runner.route()', async t => {
   t.equal(r.route('x', 'w'), undefined)
   t.equal(r.route('a', 'z'), undefined)
   t.equal(r.route('b', 'a'), undefined)
-  t.equal(r.route('?', '?'), undefined)
+  t.strictSame(r.route('?', '?'), ['?', '?'])
 })
 
 t.test('entry points required', t => {
@@ -483,4 +483,104 @@ t.test('entry points required', t => {
     message: 'no nodes provided to graph traversal',
   })
   t.end()
+})
+
+t.test('extreme async deadlock scenario', async t => {
+  // based on the actual dep graph of node-tap
+  const graph: Record<string, string[]> = {
+    tap: [
+      '@tapjs/after',
+      '@tapjs/after-each',
+      '@tapjs/asserts',
+      '@tapjs/before',
+      '@tapjs/before-each',
+      '@tapjs/chdir',
+      '@tapjs/core',
+      '@tapjs/filter',
+      '@tapjs/fixture',
+      '@tapjs/intercept',
+      '@tapjs/mock',
+      '@tapjs/node-serialize',
+      '@tapjs/run',
+      '@tapjs/snapshot',
+      '@tapjs/spawn',
+      '@tapjs/stdin',
+      '@tapjs/test',
+      '@tapjs/typescript',
+      '@tapjs/worker',
+    ],
+    '@tapjs/after': ['@tapjs/core'],
+    '@tapjs/after-each': ['@tapjs/core'],
+    '@tapjs/asserts': ['@tapjs/core'],
+    '@tapjs/before': ['@tapjs/core'],
+    '@tapjs/before-each': ['@tapjs/core'],
+    '@tapjs/chdir': ['@tapjs/core'],
+    '@tapjs/core': ['@tapjs/stack', '@tapjs/test'],
+    '@tapjs/config': [],
+    '@tapjs/filter': ['@tapjs/core'],
+    '@tapjs/fixture': ['@tapjs/core'],
+    '@tapjs/intercept': ['@tapjs/core'],
+    '@tapjs/mock': ['@tapjs/core'],
+    '@tapjs/node-serialize': ['@tapjs/core'],
+    '@tapjs/run': [
+      '@tapjs/core',
+      '@tapjs/config',
+      '@tapjs/after',
+      '@tapjs/before',
+      '@tapjs/config',
+      '@tapjs/spawn',
+      '@tapjs/stdin',
+      '@tapjs/test',
+    ],
+    '@tapjs/snapshot': ['@tapjs/core'],
+    '@tapjs/spawn': ['@tapjs/core'],
+    '@tapjs/stdin': ['@tapjs/core'],
+    '@tapjs/stack': [],
+    '@tapjs/test': [
+      '@tapjs/core',
+      '@tapjs/config',
+      '@tapjs/after',
+      '@tapjs/after-each',
+      '@tapjs/asserts',
+      '@tapjs/before',
+      '@tapjs/before-each',
+      '@tapjs/chdir',
+      '@tapjs/filter',
+      '@tapjs/fixture',
+      '@tapjs/intercept',
+      '@tapjs/mock',
+      '@tapjs/node-serialize',
+      '@tapjs/snapshot',
+      '@tapjs/spawn',
+      '@tapjs/stdin',
+      '@tapjs/typescript',
+      '@tapjs/worker',
+    ],
+    '@tapjs/typescript': ['@tapjs/core'],
+    '@tapjs/worker': ['@tapjs/core'],
+  }
+
+  const getDeps = (node: string) => graph[node] ?? []
+
+  const visits: string[] = []
+
+  const visit = async (node: string) => {
+    await setTimeout()
+    visits.push(node)
+  }
+
+  await graphRun({
+    graph: ['tap'],
+    getDeps,
+    visit,
+  })
+
+  t.strictSame(
+    new Set(visits.sort((a, b) => a.localeCompare(b, 'en'))),
+    new Set(
+      Object.keys(graph).sort((a, b) => a.localeCompare(b, 'en')),
+    ),
+    'visited all nodes',
+  )
+  t.equal(visits[visits.length - 1], 'tap', 'visited tap last')
 })

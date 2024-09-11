@@ -362,9 +362,44 @@ Array [
 exports[`test/index.ts > TAP > exploring various shapes > bush > cycles 1`] = `
 Array [
   Array [
+    "c",
+    "bush->a->b",
+    "b->c->b",
+  ],
+  Array [
+    "d",
+    "bush->a->b",
+    "b->d->b",
+  ],
+  Array [
+    "e",
+    "bush->a->b",
+    "b->e->b",
+  ],
+  Array [
+    "f",
+    "bush->a->b",
+    "b->f->b",
+  ],
+  Array [
     "b",
     "bush->a->c",
     "c->b->c",
+  ],
+  Array [
+    "d",
+    "bush->a->c",
+    "c->d->c",
+  ],
+  Array [
+    "e",
+    "bush->a->c",
+    "c->e->c",
+  ],
+  Array [
+    "f",
+    "bush->a->c",
+    "c->f->c",
   ],
   Array [
     "b",
@@ -375,6 +410,16 @@ Array [
     "c",
     "bush->a->d",
     "d->c->d",
+  ],
+  Array [
+    "e",
+    "bush->a->d",
+    "d->e->d",
+  ],
+  Array [
+    "f",
+    "bush->a->d",
+    "d->f->d",
   ],
   Array [
     "b",
@@ -390,6 +435,11 @@ Array [
     "d",
     "bush->a->e",
     "e->d->e",
+  ],
+  Array [
+    "f",
+    "bush->a->e",
+    "e->f->e",
   ],
   Array [
     "b",
@@ -426,7 +476,22 @@ Array [
     Object {},
   ],
   Array [
-    "f",
+    "c",
+    Array [
+      "bush",
+      "a",
+    ],
+    Object {
+      "b": undefined,
+      "c": undefined,
+      "d": undefined,
+      "e": undefined,
+      "f": undefined,
+      "g": "g",
+    },
+  ],
+  Array [
+    "d",
     Array [
       "bush",
       "a",
@@ -451,12 +516,12 @@ Array [
       "c": undefined,
       "d": undefined,
       "e": undefined,
-      "f": "f",
+      "f": undefined,
       "g": "g",
     },
   ],
   Array [
-    "d",
+    "f",
     Array [
       "bush",
       "a",
@@ -465,23 +530,8 @@ Array [
       "b": undefined,
       "c": undefined,
       "d": undefined,
-      "e": "e",
-      "f": "f",
-      "g": "g",
-    },
-  ],
-  Array [
-    "c",
-    Array [
-      "bush",
-      "a",
-    ],
-    Object {
-      "b": undefined,
-      "c": undefined,
-      "d": "d",
-      "e": "e",
-      "f": "f",
+      "e": undefined,
+      "f": undefined,
       "g": "g",
     },
   ],
@@ -526,6 +576,11 @@ Array [
 exports[`test/index.ts > TAP > exploring various shapes > couple > cycles 1`] = `
 Array [
   Array [
+    "b",
+    "couple->a",
+    "a->b->a",
+  ],
+  Array [
     "a",
     "couple->b",
     "b->a->b",
@@ -536,21 +591,21 @@ Array [
 exports[`test/index.ts > TAP > exploring various shapes > couple > visits 1`] = `
 Array [
   Array [
+    "a",
+    Array [
+      "couple",
+    ],
+    Object {
+      "b": undefined,
+    },
+  ],
+  Array [
     "b",
     Array [
       "couple",
     ],
     Object {
       "a": undefined,
-    },
-  ],
-  Array [
-    "a",
-    Array [
-      "couple",
-    ],
-    Object {
-      "b": "b",
     },
   ],
   Array [
@@ -610,6 +665,21 @@ Array [
 exports[`test/index.ts > TAP > exploring various shapes > pyramid > cycles 1`] = `
 Array [
   Array [
+    "b",
+    "pyramid->a",
+    "a->b->a",
+  ],
+  Array [
+    "c",
+    "pyramid->a",
+    "a->c->a",
+  ],
+  Array [
+    "c",
+    "pyramid->b",
+    "b->c->b",
+  ],
+  Array [
     "a",
     "pyramid->b",
     "b->a->b",
@@ -630,13 +700,13 @@ Array [
 exports[`test/index.ts > TAP > exploring various shapes > pyramid > visits 1`] = `
 Array [
   Array [
-    "c",
+    "a",
     Array [
       "pyramid",
     ],
     Object {
-      "a": undefined,
       "b": undefined,
+      "c": undefined,
     },
   ],
   Array [
@@ -646,17 +716,17 @@ Array [
     ],
     Object {
       "a": undefined,
-      "c": "c",
+      "c": undefined,
     },
   ],
   Array [
-    "a",
+    "c",
     Array [
       "pyramid",
     ],
     Object {
-      "b": "b",
-      "c": "c",
+      "a": undefined,
+      "b": undefined,
     },
   ],
   Array [
@@ -865,6 +935,11 @@ Array [
 exports[`test/index.ts > TAP > exploring various shapes > throuple > cycles 1`] = `
 Array [
   Array [
+    "c",
+    "throuple->a->b",
+    "b->c->b",
+  ],
+  Array [
     "a",
     "throuple->a->b",
     "b->a->b",
@@ -885,6 +960,17 @@ Array [
 exports[`test/index.ts > TAP > exploring various shapes > throuple > visits 1`] = `
 Array [
   Array [
+    "b",
+    Array [
+      "throuple",
+      "a",
+    ],
+    Object {
+      "a": undefined,
+      "c": undefined,
+    },
+  ],
+  Array [
     "c",
     Array [
       "throuple",
@@ -893,17 +979,6 @@ Array [
     Object {
       "a": undefined,
       "b": undefined,
-    },
-  ],
-  Array [
-    "b",
-    Array [
-      "throuple",
-      "a",
-    ],
-    Object {
-      "a": undefined,
-      "c": "c",
     },
   ],
   Array [
@@ -981,9 +1056,9 @@ Array [
 exports[`test/index.ts > TAP > exploring various shapes > tripod > cycles 1`] = `
 Array [
   Array [
-    "a",
-    "tripod->c",
-    "c->a->b->c",
+    "c",
+    "tripod->b",
+    "b->c->a->b",
   ],
 ]
 `
@@ -991,21 +1066,12 @@ Array [
 exports[`test/index.ts > TAP > exploring various shapes > tripod > visits 1`] = `
 Array [
   Array [
-    "c",
-    Array [
-      "tripod",
-    ],
-    Object {
-      "a": undefined,
-    },
-  ],
-  Array [
     "b",
     Array [
       "tripod",
     ],
     Object {
-      "c": "c",
+      "c": undefined,
     },
   ],
   Array [
@@ -1015,6 +1081,15 @@ Array [
     ],
     Object {
       "b": "b",
+    },
+  ],
+  Array [
+    "c",
+    Array [
+      "tripod",
+    ],
+    Object {
+      "a": "a",
     },
   ],
   Array [
