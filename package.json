@@ -45,6 +45,7 @@
     "url": "git+https://github.com/isaacs/graph-run.git"
   },
   "devDependencies": {
+    "@types/node": "^22.5.4",
     "prettier": "^3.3.3",
     "tap": "^21.0.1",
     "tshy": "^3.0.2",
