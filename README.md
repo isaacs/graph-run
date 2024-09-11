@@ -150,7 +150,7 @@ const results = await graphRun/*<Node, Result>*/({
   onCycle: (node, cycle, path) => {
     console.error(
       `warning: while evaluating ${
-        node 
+        node
       } at path ${
         path.join('->')
       } encountered cycle: ${

@@ -45,10 +45,10 @@
     "url": "git+https://github.com/isaacs/graph-run.git"
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
-    "tap": "^19.0.2",
-    "tshy": "^1.14.0",
-    "typedoc": "^0.25.13"
+    "prettier": "^3.3.3",
+    "tap": "^21.0.1",
+    "tshy": "^3.0.2",
+    "typedoc": "^0.26.7"
   },
   "prettier": {
     "semi": false,
@@ -69,5 +69,6 @@
     }
   },
   "types": "./dist/commonjs/index.d.ts",
-  "type": "module"
+  "type": "module",
+  "module": "./dist/esm/index.js"
 }

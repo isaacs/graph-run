@@ -163,7 +163,7 @@ export abstract class RunnerBase<
     if (signal !== undefined) {
       signal.addEventListener('abort', reason => ac.abort(reason), {
         once: true,
-        signal: ac.signal
+        signal: ac.signal,
       })
     }
   }
